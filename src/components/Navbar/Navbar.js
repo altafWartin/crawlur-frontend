@@ -1,7 +1,14 @@
-import { Link, useLocation } from "react-router-dom";
+import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import Language from '../Language';
 
 const Navebar = () => {
+  const [isDropdownVisible, setDropdownVisible] = useState(false);
   const location = useLocation();
+
+  const toggleDropdown = () => {
+    setDropdownVisible(!isDropdownVisible);
+  };
 
   return (
     <header className="self-stretch bg-blue flex flex-row items-start justify-center py-[2.187rem] px-[1.25rem] box-border top-[0] z-[99] sticky max-w-full text-left text-[1.313rem] text-white-color font-h5-22-bold">
@@ -14,7 +21,6 @@ const Navebar = () => {
           src="/crawlur2.svg"
         />
       </div>
-
       {location.pathname === "/Catalog" && (
         <div className="w-[34.125rem] rounded bg-white-color flex flex-row items-start justify-between py-[0rem] pr-[0rem] pl-[1.25rem] box-border gap-[1.25rem] max-w-full z-[1]">
           <div className="self-stretch w-[34.125rem] relative rounded bg-white-color hidden max-w-full" />
@@ -33,7 +39,6 @@ const Navebar = () => {
           </div>
         </div>
       )}
-
       <div className="w-[25.938rem] mx-9 rounded-lg bg-mediumslateblue-100 flex flex-row items-start justify-between py-[0.75rem] pr-[2.125rem] pl-[2.187rem] box-border max-w-full gap-[1.25rem] z-[3]">
         <Link
           to="/"
@@ -89,6 +94,20 @@ const Navebar = () => {
           </a>
         </Link>
       </div>
+      <button className="bg-transparent" onClick={toggleDropdown}>
+        <img
+          loading="lazy"
+          src="https://cdn.builder.io/api/v1/image/assets/TEMP/b8f3384b8e37ad00554547ef3eb4fe771c67ea8ec62102998c6f010bc17912dd?apiKey=b84dd30bad284682bdd2468de5480c9b&&apiKey=b84dd30bad284682bdd2468de5480c9b"
+          className="self-end w-16 rounded-none aspect-square"
+          alt="Language selector"
+        />
+      </button>
+ 
+      {isDropdownVisible && (
+        <div className="absolute top-[100%] mr-[100px]  text-slategray right-0 mt-2 bg-white border rounded shadow-lg z-10">
+          <Language />
+        </div>
+      )}
     </header>
   );
 };

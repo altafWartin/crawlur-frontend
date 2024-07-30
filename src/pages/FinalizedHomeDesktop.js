@@ -5,6 +5,7 @@ import FrameComponent4 from "../components/FrameComponent4";
 import FrameComponent2 from "../components/FrameComponent2";
 import FrameComponent3 from "../components/FrameComponent3";
 import Footer from "../components/Footer";
+import { Link } from "react-router-dom";
 
 const FinalizedHomeDesktop = () => {
   return (
@@ -227,7 +228,7 @@ const FinalizedHomeDesktop = () => {
                   </div>
                   <div className="self-stretch shadow-[0px_4px_4px_-1px_rgba(12,_12,_13,_0.1),_0px_4px_4px_-1px_rgba(12,_12,_13,_0.05)] rounded-md bg-white-color flex flex-row items-start justify-between py-[0rem] pr-[1rem] pl-[0rem] box-border max-w-full gap-[1.25rem] z-[2] text-center">
                     <div className="self-stretch w-[82.5rem] relative shadow-[0px_4px_4px_-1px_rgba(12,_12,_13,_0.1),_0px_4px_4px_-1px_rgba(12,_12,_13,_0.05)] rounded-md bg-white-color hidden max-w-full" />
-                    <div className="flex flex-row items-start justify-start py-[0rem] pr-[22.75rem] pl-[0rem] box-border gap-[1.375rem] max-w-full text-left">
+                    <Link to="/product" className="flex no-underline text-dark-blue flex-row items-start justify-start py-[0rem] pr-[22.75rem] pl-[0rem] box-border gap-[1.375rem] max-w-full text-left">
                       <img
                         className="h-[3.75rem] w-[3.75rem] relative rounded-md object-cover z-[3]"
                         loading="lazy"
@@ -239,7 +240,7 @@ const FinalizedHomeDesktop = () => {
                           Vitamix Professional Series 750 Blender
                         </div>
                       </div>
-                    </div>
+                    </Link>
                     <div className="flex flex-col items-start justify-start pt-[1.062rem] px-[0rem] pb-[0rem]">
                       <div className="relative leading-[1.625rem] font-extrabold inline-block min-w-[4.188rem] z-[3]">
                         Vitamix

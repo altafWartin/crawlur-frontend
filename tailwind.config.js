@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       colors: {
         blue: "#004fe6",
+        whiteee:"#D9E6FF",
         mediumslateblue: {
           "100": "#065cff",
           "200": "rgba(0, 79, 230, 0.1)",
@@ -89,16 +90,16 @@ module.exports = {
       },
     },
     fontSize: {
-      mini: "0.938rem",
-      lg: "1.125rem",
-      "3xl": "1.375rem",
-      "13xl": "2rem",
-      "2xl": "1.313rem",
-      xl: "1.25rem",
-      base: "1rem",
-      "29xl": "3rem",
-      "37xl": "3.5rem",
-      "21xl": "2.5rem",
+      mini: "0.838rem",
+      lg: "1.025rem",
+      "3xl": "1.275rem",
+      "13xl": "1.900rem",
+      "2xl": "1.213rem",
+      xl: "1.15rem",
+      base: "0.9rem",
+      "29xl": "2.9rem",
+      "37xl": "3.3rem",
+      "21xl": "2.4rem",
       inherit: "inherit",
     },
     screens: {

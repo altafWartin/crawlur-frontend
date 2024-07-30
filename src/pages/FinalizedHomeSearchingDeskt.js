@@ -7,6 +7,7 @@ import FrameComponent4 from "../components/FrameComponent4";
 import FrameComponent2 from "../components/FrameComponent2";
 import FrameComponent3 from "../components/FrameComponent3";
 import Footer from "../components/Footer";
+import Language from "../components/Language";
 
 const FinalizedHomeSearchingDeskt = () => {
   return (
@@ -25,6 +26,7 @@ const FinalizedHomeSearchingDeskt = () => {
               <div className="w-[18.563rem] flex flex-col items-start justify-start gap-[8.537rem]">
                 <div className="self-stretch flex flex-row items-start justify-end">
                   <FrameComponent />
+            
                 </div>
                 <div className="w-[10.688rem] flex flex-row items-start justify-start relative">
                   <img
