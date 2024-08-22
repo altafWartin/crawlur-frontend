@@ -1,7 +1,6 @@
 import ProductItems from "./ProductItems";
 import PropTypes from "prop-types";
 import { useLocation } from "react-router-dom";
-import SearchContext from './context/SearchContext'; // <-- Add this line
 
 const Content1 = ({ className = "" }) => {
   const location = useLocation();
