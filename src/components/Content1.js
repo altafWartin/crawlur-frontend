@@ -1,7 +1,13 @@
 import ProductItems from "./ProductItems";
 import PropTypes from "prop-types";
+import { useLocation } from "react-router-dom";
 
 const Content1 = ({ className = "" }) => {
+  const location = useLocation();
+  const results = location.state?.results || [];
+  const error = location.state?.error || "";
+
+  console.log("Catlogresults------>>>>>", results);
   return (
     <section
       className={`self-stretch flex flex-row items-start justify-center py-[0rem] px-[1.25rem] box-border max-w-full text-left text-[1.125rem] text-dark-blue font-p-18-bold ${className}`}
@@ -171,90 +177,60 @@ const Content1 = ({ className = "" }) => {
                   </div>
                 </div>
               </div>
-              <div className="self-stretch shadow-[0px_4px_4px_-1px_rgba(12,_12,_13,_0.1),_0px_4px_4px_-1px_rgba(12,_12,_13,_0.05)] rounded-md bg-white-color flex flex-row items-start justify-between py-[0rem] pr-[1.125rem] pl-[0rem] box-border max-w-full gap-[1.25rem] z-[1] text-center">
-                <div className="self-stretch w-[82.5rem] relative shadow-[0px_4px_4px_-1px_rgba(12,_12,_13,_0.1),_0px_4px_4px_-1px_rgba(12,_12,_13,_0.05)] rounded-md bg-white-color hidden max-w-full" />
-                <div className="flex flex-row items-start justify-start py-[0rem] pr-[4.937rem] pl-[0rem] box-border gap-[1.375rem] max-w-full text-left">
-                  <img
-                    className="h-[3.75rem] w-[3.75rem] relative rounded-md object-cover z-[2]"
-                    loading="lazy"
-                    alt=""
-                    src="/rectangle-38@2x.png"
-                  />
-                  <div className="flex flex-col items-start justify-start pt-[1.062rem] px-[0rem] pb-[0rem] box-border max-w-full">
-                    <div className="relative leading-[1.625rem] font-extrabold z-[2]">
-                      Vitamix Professional Series 750 Blender
-                    </div>
-                  </div>
-                </div>
-                <div className="w-[8.438rem] flex flex-col items-start justify-start pt-[1.062rem] px-[0rem] pb-[0rem] box-border">
-                  <div className="relative leading-[1.625rem] font-extrabold inline-block min-w-[4.188rem] z-[2]">
-                    Vitamix
-                  </div>
-                </div>
-                <div className="flex flex-col items-start justify-start pt-[1.062rem] px-[0rem] pb-[0rem]">
-                  <div className="relative leading-[1.625rem] font-extrabold inline-block min-w-[5.875rem] z-[2]">
-                    Electronics
-                  </div>
-                </div>
-                <div className="flex flex-col items-start justify-start pt-[0.625rem] px-[0rem] pb-[0rem]">
-                  <button className="cursor-pointer py-[0.312rem] px-[1.187rem] bg-[transparent] rounded-35xl overflow-hidden flex flex-row items-start justify-start z-[2] border-[1px] border-solid border-orange hover:bg-chocolate-200 hover:box-border hover:border-[1px] hover:border-solid hover:border-chocolate-100">
-                    <div className="relative text-[1.313rem] leading-[1.625rem] font-semibold font-h5-22-bold text-dark-blue text-center inline-block min-w-[4.938rem]">
-                      Amazon
-                    </div>
-                  </button>
-                </div>
-              </div>
-              <ProductItems
-                rectangle39="/rectangle-39@2x.png"
-                vitamix5200BlenderProfess="Vitamix 5200 Blender, Professional-Grade"
-              />
-              <div className="self-stretch flex flex-row items-start justify-between py-[0rem] pr-[1.125rem] pl-[0rem] box-border relative max-w-full gap-[1.25rem]">
-                <div className="h-full w-full absolute !m-[0] top-[0rem] right-[0rem] bottom-[0rem] left-[0rem] rounded-md bg-whitesmoke z-[1]" />
-                <div className="flex flex-row items-start justify-start gap-[1.375rem] max-w-full">
-                  <img
-                    className="h-[3.75rem] w-[3.75rem] relative rounded-md object-cover z-[2]"
-                    loading="lazy"
-                    alt=""
-                    src="/rectangle-262@2x.png"
-                  />
-                  <div className="flex flex-col items-start justify-start pt-[1.062rem] px-[0rem] pb-[0rem]">
-                    <b className="relative leading-[1.625rem] z-[2]">
-                      Vitamix A3300 Ascent Series Smart
-                    </b>
-                  </div>
-                </div>
-                <div className="w-[40.313rem] flex flex-col items-start justify-start pt-[0.625rem] px-[0rem] pb-[0rem] box-border max-w-full text-center">
-                  <div className="self-stretch flex flex-row items-start justify-between gap-[1.25rem]">
-                    <div className="w-[8.375rem] flex flex-col items-start justify-start pt-[0.437rem] px-[0rem] pb-[0rem] box-border">
-                      <b className="relative leading-[1.625rem] inline-block min-w-[4.125rem] z-[2]">
-                        Vitamix
-                      </b>
-                    </div>
-                    <div className="flex flex-col items-start justify-start pt-[0.437rem] px-[0rem] pb-[0rem]">
-                      <b className="relative leading-[1.625rem] inline-block min-w-[5.75rem] z-[2]">
-                        Electronics
-                      </b>
-                    </div>
-                    <button className="cursor-pointer [border:none] py-[0.437rem] px-[1.25rem] bg-orange rounded-34xl overflow-hidden flex flex-row items-start justify-start z-[2] hover:bg-chocolate-100">
-                      <div className="relative text-[1.313rem] leading-[1.625rem] font-semibold font-h5-22-bold text-dark-blue text-center inline-block min-w-[4.938rem]">
-                        Amazon
+        
+
+              <div className=" w-full flex flex-col gap-[1.25rem]">
+                {results.length > 0 ? (
+                  results.map((product) => (
+                    <div
+                      key={product.id}
+                      className="self-stretch w-full flex flex-row items-start hover:shadow-[0px_4px_4px_-1px_rgba(12,_12,_13,_0.1),_0px_4px_4px_-1px_rgba(12,_12,_13,_0.05)] hover:bg-white-color justify-between py-[0rem] pr-[1.125rem] pl-[0rem] box-border relative max-w-full gap-[1.25rem]"
+                    >
+                      <div className="h-full w-full absolute !m-[0] top-[0rem] right-[0rem] bottom-[0rem] left-[0rem] rounded-md bg-whitesmoke z-[1]" />
+                      <div className="flex flex-row items-start justify-start gap-[1.375rem] max-w-full">
+                        <img
+                          className="h-[3.75rem] w-[3.75rem] relative rounded-md object-cover z-[2]"
+                          loading="lazy"
+                          alt={product.title}
+                          src={product.imageUrl}
+                        />
+                        <div className="flex flex-col items-start justify-start pt-[1.062rem] px-[0rem] pb-[0rem]">
+                          <b className="relative leading-[1.625rem] z-[2]">
+                            {product.title.length > 40
+                              ? `${product.title.substring(0, 40)}...`
+                              : product.title}{" "}
+                          </b>
+                        </div>
                       </div>
-                    </button>
+                      <div className="w-[40.313rem] flex flex-col items-start justify-start pt-[0.625rem] px-[0rem] pb-[0rem] box-border max-w-full text-center">
+                        <div className="self-stretch flex flex-row items-start justify-between gap-[1.25rem]">
+                          <div className="w-[12.375rem] flex flex-col items-start justify-start pt-[0.437rem] px-[0rem] pb-[0rem] box-border">
+                            <b className="relative leading-[1.625rem] inline-block min-w-[4.125rem] z-[2]">
+                              {product.brand}
+                            </b>
+                          </div>
+                          <div className="flex flex-col items-start justify-start pt-[0.437rem] px-[0rem] pb-[0rem]">
+                            <b className="relative leading-[1.625rem] inline-block min-w-[5.75rem] z-[2]">
+                              {product.category?.[0]?.name ||
+                                "Unknown Category"}
+                            </b>
+                          </div>{" "}
+                      
+                          <button className="cursor-pointer py-[0.312rem] px-[1.187rem] bg-[transparent] rounded-35xl overflow-hidden flex flex-row items-start justify-start z-[2] border-[1px] border-solid border-orange hover:bg-orange hover:box-border hover:border-[1px] hover:border-solid hover:border-chocolate-100">
+                              <div className="relative text-[1.313rem] leading-[1.625rem] font-semibold font-h5-22-bold text-dark-blue text-center inline-block min-w-[4.938rem]">
+                                Amazon
+                              </div>
+                            </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div className="text-center py-4">
+                    <p>No products available.</p>
                   </div>
-                </div>
+                )}
               </div>
-              <ProductItems
-                rectangle39="/rectangle-39@2x.png"
-                vitamix5200BlenderProfess="Vitamix 5200 Blender, Professional-Grade"
-              />
-              <ProductItems
-                rectangle39="/rectangle-262@2x.png"
-                vitamix5200BlenderProfess="Vitamix 5200 Blender, Professional-Grade"
-              />{" "}
-              <ProductItems
-                rectangle39="/rectangle-39@2x.png"
-                vitamix5200BlenderProfess="Vitamix 5200 Blender, Professional-Grade"
-              />
             </div>
           </div>
         </div>

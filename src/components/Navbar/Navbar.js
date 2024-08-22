@@ -1,15 +1,47 @@
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import Language from '../Language';
+import React, { useState } from "react";
+import { Link, useLocation,useNavigate } from "react-router-dom";
+import Language from "../Language";
 
 const Navebar = () => {
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState([]);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const handleInputChange = (e) => {
+    setQuery(e.target.value);
+  };
+
+  const handleButtonClick = async () => {
+    if (query.trim()) {
+      try {
+        const response = await fetch(
+          `https://crawlur-new-backend.onrender.com/api/products/search-amazon?query=${encodeURIComponent(
+            query
+          )}`
+        );
+        if (response.ok) {
+          const data = await response.json();
+          setResults(data);
+          setError("");
+          navigate('/Catalog', { state: { results: data } });
+        } else {
+          const { message } = await response.json();
+          setResults([]);
+          setError(message);
+        }
+      } catch (error) {
+        console.error("Error fetching search results:", error);
+        setError("Error fetching search results");
+      }
+    }
+  };
+
   const [isDropdownVisible, setDropdownVisible] = useState(false);
-  const location = useLocation();
 
   const toggleDropdown = () => {
     setDropdownVisible(!isDropdownVisible);
   };
-
   return (
     <header className="self-stretch bg-blue flex flex-row items-start justify-center py-[2.187rem] px-[1.25rem] box-border top-[0] z-[99] sticky max-w-full text-left text-[1.313rem] text-white-color font-h5-22-bold">
       <div className="h-[7.5rem] w-[120rem] relative bg-blue hidden max-w-full" />
@@ -28,15 +60,20 @@ const Navebar = () => {
             className="w-[40.438rem] [border:none] [outline:none] bg-[transparent] h-[2.438rem] flex flex-col items-start justify-start pt-[0.687rem] px-[0rem] pb-[0rem] box-border font-p-18-bold font-semibold text-[1.25rem] text-darkslateblue-300"
             placeholder="Vitamix"
             type="text"
+            value={query}
+            onChange={handleInputChange}
           />
-          <div className="h-[3.125rem] w-[3.625rem] relative rounded-tl-7xl rounded-tr rounded-br rounded-bl-7xl bg-accent z-[2]">
+          <button
+            className="h-[3.125rem] w-[3.625rem] relative rounded-tl-7xl rounded-tr rounded-br rounded-bl-7xl bg-accent z-[2]"
+            onClick={handleButtonClick}
+          >
             <div className="absolute top-[0rem] left-[0rem] rounded-tl-7xl rounded-tr rounded-br rounded-bl-7xl bg-accent w-full h-full hidden" />
             <img
               className="absolute top-[1rem] left-[1.25rem] w-[1.125rem] h-[1.125rem] z-[3]"
               alt=""
               src="/icon2.svg"
             />
-          </div>
+          </button>
         </div>
       )}
       <div className="w-[25.938rem] mx-9 rounded-lg bg-mediumslateblue-100 flex flex-row items-start justify-between py-[0.75rem] pr-[2.125rem] pl-[2.187rem] box-border max-w-full gap-[1.25rem] z-[3]">
@@ -102,7 +139,7 @@ const Navebar = () => {
           alt="Language selector"
         />
       </button>
- 
+
       {isDropdownVisible && (
         <div className="absolute top-[100%] mr-[100px]  text-slategray right-0 mt-2 bg-white border rounded shadow-lg z-10">
           <Language />

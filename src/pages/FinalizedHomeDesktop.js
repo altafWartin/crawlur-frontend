@@ -1,13 +1,50 @@
-import SplitLeft from "../components/SplitLeft";
-import RightPanel from "../components/RightPanel";
-import FrameComponent4 from "../components/FrameComponent4";
-
-import FrameComponent2 from "../components/FrameComponent2";
-import FrameComponent3 from "../components/FrameComponent3";
-import Footer from "../components/Footer";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
 
 const FinalizedHomeDesktop = () => {
+  const [query, setQuery] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    const fetchSuggestions = async () => {
+      if (query.trim() === "") {
+        setSuggestions([]);
+        return;
+      }
+
+      try {
+        const response = await fetch(
+          `https://crawlur-new-backend.onrender.com/api/products/search-local?query=${query}`
+        );
+        if (response.ok) {
+          const products = await response.json();
+          console.log(products);
+          // If response is a single product, convert to an array
+          setSuggestions(Array.isArray(products) ? products : [products]);
+          setError("");
+        } else {
+          const { message } = await response.json();
+          setSuggestions([]);
+          setError(message);
+        }
+      } catch (error) {
+        console.error("Error fetching product suggestions:", error);
+        setError("Error fetching product suggestions");
+      }
+    };
+
+    fetchSuggestions();
+  }, [query]);
+
+  const handleButtonClick = () => {
+    if (query.trim()) {
+      // Navigate to the destination page with query as a URL parameter
+      navigate(`/Catalog=${encodeURIComponent(query)}`);
+    }
+  };
+
   return (
     <div className="w-full relative bg-white-color overflow-hidden flex flex-col items-start justify-start gap-[2.562rem] leading-[normal] tracking-[normal] text-left text-[1.125rem] text-dark-blue font-paragraph-18-medium">
       <div className="w-[23.625rem] relative leading-[1.625rem] font-medium hidden max-w-full z-[0]">
@@ -133,21 +170,81 @@ const FinalizedHomeDesktop = () => {
                 <div className="w-[48.938rem] flex flex-col items-start justify-start pt-[1.837rem] px-[0rem] pb-[0rem] box-border max-w-full text-left text-[1.25rem] text-darkslateblue-400 font-p-18-bold">
                   <div className="self-stretch flex flex-col items-start justify-start gap-[2.5rem] max-w-full">
                     <div className="self-stretch flex flex-row items-start justify-start gap-[1.5rem] max-w-full">
-                      <div className="flex-1 flex flex-row items-start justify-between py-[1.625rem] pr-[1.625rem] pl-[1.812rem] box-border relative max-w-full gap-[1.25rem]">
-                        <div className="h-full w-full absolute !m-[0] top-[0rem] right-[-0.125rem] bottom-[-0.125rem] left-[0rem] rounded-52xl bg-ghostwhite box-border z-[2] border-[1px] border-solid border-dark-blue" />
-                        <input
-                          type="text"
-                          className="w-[17.375rem] relative leading-[1.75rem] font-semibold text-xl inline-block shrink-0 z-[3] bg-transparent border-none outline-none"
-                          placeholder="Search product name or url"
-                        />
-                        <div className="flex flex-col items-start justify-start pt-[0.125rem] px-[0rem] pb-[0rem]">
-                          <img
-                            className="w-[1.5rem] h-[1.5rem] relative rounded-3xs z-[3]"
-                            loading="lazy"
-                            alt=""
-                            src="/icon.svg"
+                      <div className="relative">
+                        <div className="flex-1 flex flex-row items-start justify-between py-[1.225rem] pr-[1.625rem] pl-[1.812rem] box-border relative max-w-full gap-[1.25rem]">
+                          <div className="h-full w-full absolute !m-[0] top-[0rem] right-[-0.125rem] bottom-[-0.125rem] left-[0rem] rounded-52xl bg-ghostwhite box-border z-[2] border-[1px] border-solid border-dark-blue" />
+                          <input
+                            type="text"
+                            className="w-[17.375rem] relative leading-[1.75rem] font-semibold text-xl inline-block shrink-0 z-[3] bg-transparent border-none outline-none"
+                            placeholder="Search product name or url"
+                            value={query}
+                            onChange={(e) => setQuery(e.target.value)}
                           />
+                          <button
+                            onClick={handleButtonClick}
+                            className="flex flex-col bg-transparent  items-start justify-start  px-7 cursor-pointer"
+                          >
+                            <img
+                              className="w-[1.5rem] h-[1.5rem] relative rounded-3xs z-[3]"
+                              loading="lazy"
+                              alt=""
+                              src="/icon.svg"
+                            />
+                          </button>
                         </div>
+
+                        {error && (
+                          <div className="absolute text-red-500 z-[4]">
+                            {error}
+                          </div>
+                        )}
+                        {suggestions && (
+                          <div
+                            className={`flex-1 ${
+                              suggestions ? "" : "hidden"
+                            } top-2 flex flex-row items-start justify-end max-w-full text-[1.25rem] font-p-18-bold`}
+                          >
+                            {" "}
+                            <div className="w-[48.938rem] flex flex-col items-start justify-start gap-[0.687rem] max-w-full">
+                              <div className="w-[43.125rem] shadow-[0px_15px_81.6px_rgba(67,_73,_86,_0.1)] rounded-xl bg-white-color flex flex-col items-end justify-start pt-[0rem] px-[0rem] pb-[1.5rem] box-border gap-[0.662rem] max-w-full z-[3] text-[1.125rem]">
+                                {suggestions.map((product) => (
+                                  <div
+                                    key={product._id}
+                                    className=" w-full relative flex flex-row items-start justify-between my-[0.5rem] py-[0.5rem]  pl-[1.812rem] box-border max-w-full hover:bg-lavender-100 transition-colors duration-300"
+                                  >
+                                    <div className="flex-1 flex flex-row items-start justify-between max-w-full gap-[1.25rem]">
+                                      <div className="w-[26.5rem] flex flex-row items-start justify-start gap-[1.187rem] max-w-full">
+                                        <img
+                                          className="h-[3.125rem] w-[3.125rem] relative object-cover z-[4]"
+                                          loading="lazy"
+                                          alt=""
+                                          src="/group-14-1@2x.png"
+                                        />
+                                        <div className="flex-1 flex flex-col items-start justify-start pt-[0.75rem] px-[0rem] pb-[0rem] box-border min-w-[14.438rem] max-w-full">
+                                          <b className="relative leading-[1.625rem] z-[4]">
+                                            {product.title.length > 30
+                                              ? `${product.title.substring(
+                                                  0,
+                                                  30
+                                                )}...`
+                                              : product.title}
+                                          </b>
+                                        </div>
+                                      </div>
+                                      <div className="w-[5.688rem] mx-8 flex flex-col items-start justify-start pt-[0.625rem] px-[0rem] pb-[0rem] box-border text-center text-[1rem]">
+                                        <div className="self-stretch rounded-71xl overflow-hidden flex flex-row items-start justify-start py-[0.187rem] px-[0.937rem] bg-dark-blue text-white z-[4] border-[1px] border-solid border-dark-blue">
+                                          <b className="relative leading-[1.25rem] inline-block min-w-[3.688rem]">
+                                            amazon
+                                          </b>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                        )}
                       </div>
 
                       <div className="flex flex-col items-start justify-start pt-[1.25rem] px-[0rem] pb-[0rem]">
@@ -228,7 +325,10 @@ const FinalizedHomeDesktop = () => {
                   </div>
                   <div className="self-stretch shadow-[0px_4px_4px_-1px_rgba(12,_12,_13,_0.1),_0px_4px_4px_-1px_rgba(12,_12,_13,_0.05)] rounded-md bg-white-color flex flex-row items-start justify-between py-[0rem] pr-[1rem] pl-[0rem] box-border max-w-full gap-[1.25rem] z-[2] text-center">
                     <div className="self-stretch w-[82.5rem] relative shadow-[0px_4px_4px_-1px_rgba(12,_12,_13,_0.1),_0px_4px_4px_-1px_rgba(12,_12,_13,_0.05)] rounded-md bg-white-color hidden max-w-full" />
-                    <Link to="/product" className="flex no-underline text-dark-blue flex-row items-start justify-start py-[0rem] pr-[22.75rem] pl-[0rem] box-border gap-[1.375rem] max-w-full text-left">
+                    <Link
+                      to="/product"
+                      className="flex no-underline text-dark-blue flex-row items-start justify-start py-[0rem] pr-[22.75rem] pl-[0rem] box-border gap-[1.375rem] max-w-full text-left"
+                    >
                       <img
                         className="h-[3.75rem] w-[3.75rem] relative rounded-md object-cover z-[3]"
                         loading="lazy"

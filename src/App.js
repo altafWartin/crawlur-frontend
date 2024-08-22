@@ -6,6 +6,7 @@ import CatalogFinalDesktop from "./pages/CatalogFinalDesktop";
 import Navebar from "./components/Navbar/Navbar"; // Adjust the import path as necessary
 import Footer from "./components/Footer/Footer";
 import Product from "./pages/Product";
+import { SearchProvider } from "./context/SearchContext";
 
 function App() {
   const location = useLocation();
@@ -13,16 +14,18 @@ function App() {
 
   return (
     <>
-      <Navebar search={isCatalogPath} />
-      <Routes>
-        <Route path="/" element={<FinalizedHomeDesktop />} />
-        <Route path="/serching" element={<FinalizedHomeSearchingDeskt />} />
-        <Route path="/signup" element={<ContactUsDesktop />} />
-        <Route path="/Catalog" element={<CatalogFinalDesktop />} />
-        <Route path="/product" element={<Product />} />
-    
-      </Routes>
-      <Footer />
+      {" "}
+      <SearchProvider>
+        <Navebar search={isCatalogPath} />
+        <Routes>
+          <Route path="/" element={<FinalizedHomeDesktop />} />
+          <Route path="/Catalog/*" element={<CatalogFinalDesktop />} />
+          <Route path="/serching" element={<FinalizedHomeSearchingDeskt />} />
+          <Route path="/signup" element={<ContactUsDesktop />} />
+          <Route path="/product" element={<Product />} />
+        </Routes>
+        <Footer />{" "}
+      </SearchProvider>
     </>
   );
 }
