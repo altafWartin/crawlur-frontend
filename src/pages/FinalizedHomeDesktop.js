@@ -6,7 +6,12 @@ const FinalizedHomeDesktop = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  
+
+  // Save query to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem("query", query);
+  }, [query]);
+
   useEffect(() => {
     const fetchSuggestions = async () => {
       if (query.trim() === "") {
@@ -180,8 +185,8 @@ const FinalizedHomeDesktop = () => {
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
                           />
-                          <button
-                            onClick={handleButtonClick}
+                          <Link
+                            to="/Catalog"
                             className="flex flex-col bg-transparent  items-start justify-start  px-7 cursor-pointer"
                           >
                             <img
@@ -190,7 +195,7 @@ const FinalizedHomeDesktop = () => {
                               alt=""
                               src="/icon.svg"
                             />
-                          </button>
+                          </Link>
                         </div>
 
                         {error && (
@@ -218,7 +223,7 @@ const FinalizedHomeDesktop = () => {
                                           className="h-[3.125rem] w-[3.125rem] relative object-cover z-[4]"
                                           loading="lazy"
                                           alt=""
-                                          src="/group-14-1@2x.png"
+                                          src={product.images_flat}
                                         />
                                         <div className="flex-1 flex flex-col items-start justify-start pt-[0.75rem] px-[0rem] pb-[0rem] box-border min-w-[14.438rem] max-w-full">
                                           <b className="relative leading-[1.625rem] z-[4]">
@@ -232,11 +237,16 @@ const FinalizedHomeDesktop = () => {
                                         </div>
                                       </div>
                                       <div className="w-[5.688rem] mx-8 flex flex-col items-start justify-start pt-[0.625rem] px-[0rem] pb-[0rem] box-border text-center text-[1rem]">
-                                        <div className="self-stretch rounded-71xl overflow-hidden flex flex-row items-start justify-start py-[0.187rem] px-[0.937rem] bg-dark-blue text-white z-[4] border-[1px] border-solid border-dark-blue">
+                                        <a
+                                          href={product.link}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          className="self-stretch no-underline rounded-71xl overflow-hidden flex flex-row items-start justify-start py-[0.187rem] px-[0.937rem] bg-dark-blue text-white z-[4] border-[1px] border-solid border-dark-blue"
+                                        >
                                           <b className="relative leading-[1.25rem] inline-block min-w-[3.688rem]">
                                             amazon
                                           </b>
-                                        </div>
+                                        </a>
                                       </div>
                                     </div>
                                   </div>

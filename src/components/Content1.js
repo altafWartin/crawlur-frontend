@@ -1,16 +1,16 @@
 import ProductItems from "./ProductItems";
 import PropTypes from "prop-types";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
-const Content1 = ({ className = "" }) => {
+const Content1 = ({ results, loading }) => {
   const location = useLocation();
-  const results = location.state?.results || [];
+  // const results = location.state?.results || [];
   const error = location.state?.error || "";
 
   console.log("Catlogresults------>>>>>", results);
   return (
     <section
-      className={`self-stretch flex flex-row items-start justify-center py-[0rem] px-[1.25rem] box-border max-w-full text-left text-[1.125rem] text-dark-blue font-p-18-bold ${className}`}
+      className={`self-stretch flex flex-row items-start justify-center py-[0rem] px-[1.25rem] box-border max-w-full text-left text-[1.125rem] text-dark-blue font-p-18-bold `}
     >
       <div className="w-[82.5rem] flex flex-col items-start justify-start gap-[2.5rem] max-w-full">
         <div className="self-stretch flex flex-row flex-wrap items-start justify-start gap-[6.5rem] max-w-full">
@@ -177,10 +177,30 @@ const Content1 = ({ className = "" }) => {
                   </div>
                 </div>
               </div>
-        
 
-              <div className=" w-full flex flex-col gap-[1.25rem]">
-                {results.length > 0 ? (
+              <div className="w-full flex flex-col gap-[1.25rem]">
+                {loading ? (
+                  <div className="flex items-center justify-center w-full h-[10rem]">
+                    {/* Loading Spinner */}
+                    <svg
+                      className="animate-spin w-8 h-8 text-gray-500"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <circle
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                        strokeLinecap="round"
+                        strokeDasharray="62.83 62.83"
+                      />
+                    </svg>
+                    <p className="ml-4 text-gray-700">Loading...</p>
+                  </div>
+                ) : results.length > 0 ? (
                   results.map((product) => (
                     <div
                       key={product.id}
@@ -214,13 +234,17 @@ const Content1 = ({ className = "" }) => {
                               {product.category?.[0]?.name ||
                                 "Unknown Category"}
                             </b>
-                          </div>{" "}
-                      
-                          <button className="cursor-pointer py-[0.312rem] px-[1.187rem] bg-[transparent] rounded-35xl overflow-hidden flex flex-row items-start justify-start z-[2] border-[1px] border-solid border-orange hover:bg-orange hover:box-border hover:border-[1px] hover:border-solid hover:border-chocolate-100">
-                              <div className="relative text-[1.313rem] leading-[1.625rem] font-semibold font-h5-22-bold text-dark-blue text-center inline-block min-w-[4.938rem]">
-                                Amazon
-                              </div>
-                            </button>
+                          </div>
+                          <a
+                            href={product.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="cursor-pointer no-underline py-[0.312rem] text-dark-blue px-[1.187rem] bg-[transparent] rounded-35xl overflow-hidden flex flex-row items-start justify-start z-[2] border-[1px] border-solid border-orange hover:bg-orange hover:box-border hover:border-[1px] hover:border-solid hover:border-chocolate-100"
+                          >
+                            <div className="relative text-[1.313rem] leading-[1.625rem] font-semibold font-h5-22-bold text-dark-blue text-center inline-block min-w-[4.938rem]">
+                              Amazon
+                            </div>
+                          </a>
                         </div>
                       </div>
                     </div>

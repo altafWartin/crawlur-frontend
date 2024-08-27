@@ -10,16 +10,16 @@ import { SearchProvider } from "./context/SearchContext";
 
 function App() {
   const location = useLocation();
-  const isCatalogPath = location.pathname === "/Catalog";
-
+  const currentPath = location.pathname;
   return (
     <>
       {" "}
       <SearchProvider>
-        <Navebar search={isCatalogPath} />
+        {" "}
+        {currentPath !== '/Catalog' && <Navebar />}
         <Routes>
           <Route path="/" element={<FinalizedHomeDesktop />} />
-          <Route path="/Catalog/*" element={<CatalogFinalDesktop />} />
+          <Route path="/Catalog" element={<CatalogFinalDesktop />} />
           <Route path="/serching" element={<FinalizedHomeSearchingDeskt />} />
           <Route path="/signup" element={<ContactUsDesktop />} />
           <Route path="/product" element={<Product />} />

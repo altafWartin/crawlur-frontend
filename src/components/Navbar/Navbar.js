@@ -1,12 +1,16 @@
 import React, { useState } from "react";
-import { Link, useLocation,useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Language from "../Language";
 
 const Navebar = () => {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(() => {
+    const savedQuery = localStorage.getItem("query");
+    return savedQuery ? savedQuery : "";
+  });
   const [results, setResults] = useState([]);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  
 
   const handleInputChange = (e) => {
     setQuery(e.target.value);
@@ -24,7 +28,7 @@ const Navebar = () => {
           const data = await response.json();
           setResults(data);
           setError("");
-          navigate('/Catalog', { state: { results: data } });
+          navigate("/Catalog", { state: { results: data } });
         } else {
           const { message } = await response.json();
           setResults([]);
