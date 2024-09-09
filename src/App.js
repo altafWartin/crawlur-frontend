@@ -1,30 +1,31 @@
 import { Routes, Route, useLocation } from "react-router-dom";
-import FinalizedHomeDesktop from "./pages/FinalizedHomeDesktop";
-import FinalizedHomeSearchingDeskt from "./pages/FinalizedHomeSearchingDeskt";
+import FinalizedHomeDesktop from "./pages/HomeDesktop";
+import FinalizedHomeSearchingDeskt from "./pages/HomeDesktop";
 import ContactUsDesktop from "./pages/ContactUsDesktop";
-import CatalogFinalDesktop from "./pages/CatalogFinalDesktop";
-import Navebar from "./components/Navbar/Navbar"; // Adjust the import path as necessary
-import Footer from "./components/Footer/Footer";
+import CatalogFinalDesktop from "./pages/CatalogDesktop";
+import Footer from "./Component/Footer/Footer";
 import Product from "./pages/Product";
 import { SearchProvider } from "./context/SearchContext";
+import HomeDesktop from "./pages/HomeDesktop";
 
 function App() {
   const location = useLocation();
   const currentPath = location.pathname;
+  
   return (
     <>
-      {" "}
       <SearchProvider>
-        {" "}
-        {currentPath !== '/Catalog' && <Navebar />}
-        <Routes>
-          <Route path="/" element={<FinalizedHomeDesktop />} />
-          <Route path="/Catalog" element={<CatalogFinalDesktop />} />
-          <Route path="/serching" element={<FinalizedHomeSearchingDeskt />} />
-          <Route path="/signup" element={<ContactUsDesktop />} />
-          <Route path="/product" element={<Product />} />
-        </Routes>
-        <Footer />{" "}
+        <div className="max-w-[1300px] mx-auto overflow-x-hidden">
+          {/* {currentPath !== '/Catalog' && "/" && <Navbar />} */}
+          <Routes>
+            <Route path="/" element={<HomeDesktop />} />
+            <Route path="/Catalog" element={<CatalogFinalDesktop />} />
+            {/* <Route path="/serching" element={<FinalizedHomeSearchingDeskt />} /> */}
+            <Route path="/signup" element={<ContactUsDesktop />} />
+            <Route path="/product/:asin" element={<Product />} />
+          </Routes>
+          <Footer />
+        </div>
       </SearchProvider>
     </>
   );
