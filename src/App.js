@@ -7,6 +7,7 @@ import Footer from "./Component/Footer/Footer";
 import Product from "./pages/Product";
 import { SearchProvider } from "./context/SearchContext";
 import HomeDesktop from "./pages/HomeDesktop";
+import './Language'; // Import i18n configuration
 
 function App() {
   const location = useLocation();
@@ -15,7 +16,7 @@ function App() {
   return (
     <>
       <SearchProvider>
-        <div className="max-w-[1300px] mx-auto overflow-x-hidden">
+        <div className=" mx-auto overflow-x-hidden">
           {/* {currentPath !== '/Catalog' && "/" && <Navbar />} */}
           <Routes>
             <Route path="/" element={<HomeDesktop />} />

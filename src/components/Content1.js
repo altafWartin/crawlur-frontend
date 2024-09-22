@@ -1,13 +1,18 @@
 import ProductItems from "./ProductItems";
 import PropTypes from "prop-types";
 import { Link, useLocation } from "react-router-dom";
-
-const Content1 = ({ results, loading }) => {
+import Lottie from "lottie-react";
+import loadinggg from "../assets/Animation - 1725965270267.json";
+const Content1 = ({ data, query, loading }) => {
+  // Make sure data is properly destructured and used
+  const products = Array.isArray(data?.products) ? data.products : [];
   const location = useLocation();
+
   // const results = location.state?.results || [];
   const error = location.state?.error || "";
 
-  console.log("Catlogresults------>>>>>", results);
+  console.log("Catlogresults------>>>>>", data);
+
   return (
     <section
       className={`self-stretch flex pt-8 flex-row items-start justify-center py-[0rem] px-[1.25rem] box-border max-w-full text-left text-[1.125rem] text-dark-blue font-p-18-bold `}
@@ -121,11 +126,11 @@ const Content1 = ({ results, loading }) => {
               <div className="flex flex-col  items-start justify-start pt-[0.437rem] px-[0rem] pb-[0rem]">
                 <div className="relative z-[1]">
                   <span className="leading-[1.025rem] font-semibold">
-                    5+ Results for
+                    {data.total_results} Results for
                   </span>
                   <b className="text-[1rem] leading-[1.25rem] text-dimgray-200">{` `}</b>
-                  <span className="leading-[1.625rem] font-extrabold text-dark-blue">{`{Searched Keyword}`}</span>
-                </div>
+                  <span className="leading-[1.625rem] font-extrabold text-dark-blue">{`{${query}}`}</span>
+                  </div>
               </div>
               <div className="w-[15.688rem] flex flex-row items-start justify-start gap-[0.625rem] text-right text-dark-blue">
                 <div className="flex flex-col items-start justify-start pt-[0.437rem] px-[0rem] pb-[0rem]">
@@ -176,37 +181,24 @@ const Content1 = ({ results, loading }) => {
                 </div>
               </div>
 
-              <div className="w-full flex flex-col gap-[0.6rem]">
+              <div className="w-full flex flex-col gap-[0.6rem] h-[calc(100vh-5rem)] overflow-auto">
                 {loading ? (
                   <div className="flex items-center justify-center w-full h-[10rem]">
                     {/* Loading Spinner */}
-                    <svg
-                      className="animate-spin w-8 h-8 text-gray-500"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <circle
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                        strokeLinecap="round"
-                        strokeDasharray="62.83 62.83"
-                      />
-                    </svg>
-                    <p className="ml-4 text-gray-700">Loading...</p>
+                    <Lottie
+                      animationData={loadinggg}
+                      loop={true}
+                      style={{ width: 100, height: 100 }}
+                    />
                   </div>
-                ) : results.length > 0 ? (
-                  results.map((product) => (
+                ) : products.length > 0 ? (
+                  products.map((product) => (
                     <div
                       key={product.id}
-                      className="self-stretch w-full flex flex-row items-center justify-between hover:shadow-[0px_4px_4px_-1px_rgba(12,_12,_13,_0.1),_0px_4px_4px_-1px_rgba(12,_12,_13,_0.05)] bg-whitesmoke hover:bg-white py-[0rem] pr-[1.125rem] pl-[0rem] box-border relative max-w-full "
+                      className="self-stretch w-full flex flex-row items-center justify-between hover:shadow-[0px_4px_4px_-1px_rgba(12,_12,_13,_0.1),_0px_4px_4px_-1px_rgba(12,_12,_13,_0.05)] bg-whitesmoke hover:bg-white py-[0rem] pr-[1.125rem] pl-[0rem] box-border relative max-w-full"
                     >
                       <div className="h-full w-full absolute !m-[0] top-[0rem] right-[0rem] bottom-[0rem] left-[0rem] rounded-md z-[1]" />
 
-                      {/* Left 50% (Product Image & Title) */}
                       <Link
                         to={`/product/${product.id}`}
                         className="w-1/2 flex no-underline text-dark-blue flex-row items-center justify-start gap-[1.375rem] max-w-full"
@@ -217,7 +209,7 @@ const Content1 = ({ results, loading }) => {
                           alt={product.title}
                           src={product.imageUrl}
                         />
-                        <div className="flex flex-col items-center justify-center  px-[0rem] pb-[0rem]">
+                        <div className="flex flex-col items-center justify-center px-[0rem] pb-[0rem]">
                           <b className="relative leading-[1.625rem] z-[2]">
                             {product.title.length > 30
                               ? `${product.title.substring(0, 30)}...`
@@ -226,27 +218,25 @@ const Content1 = ({ results, loading }) => {
                         </div>
                       </Link>
 
-                      {/* Right 50% (Brand, Category, Amazon Link) */}
                       <div className="w-1/2 flex flex-col items-center justify-center px-[0rem] pb-[0rem] box-border max-w-full text-center">
                         <div className="self-stretch flex flex-row items-center justify-between gap-[1.25rem]">
-                          <div className="w-[12.375rem] flex flex-col items-center justify-center  px-[0rem] pb-[0rem] box-border">
+                          <div className="w-[12.375rem] flex flex-col items-center justify-center px-[0rem] pb-[0rem] box-border">
                             <b className="relative leading-[1.625rem] inline-block min-w-[4.125rem] z-[2]">
                               {product.brand}
                             </b>
                           </div>
                           <div className="flex flex-col items-center justify-center pt-[0.437rem] px-[0rem] pb-[0rem]">
                             <b className="relative leading-[1.625rem] inline-block min-w-[5.75rem] z-[2]">
-                              {product.category?.[0]?.name ||
-                                " - "}
+                              {product.category?.[0]?.name || " - "}
                             </b>
                           </div>
                           <a
                             href={product.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="cursor-pointer no-underline py-[0.312rem] text-dark-blue px-[1.187rem] bg-[transparent] rounded-35xl overflow-hidden flex flex-row items-center justify-center z-[2] border-[1px] border-solid border-orange hover:bg-orange hover:box-border hover:border-[1px] hover:border-solid hover:border-chocolate-100"
+                            className="cursor-pointer no-underline py-[0.312rem] text-dark-blue px-[1.087rem] bg-[transparent] rounded-35xl overflow-hidden flex flex-row items-center justify-center z-[2] border-[1px] border-solid border-orange hover:bg-orange hover:box-border hover:border-[1px] hover:border-solid hover:border-chocolate-100"
                           >
-                            <div className="relative text-[1.313rem] leading-[1.625rem] font-semibold font-h5-22-bold text-dark-blue text-center inline-block min-w-[4.938rem]">
+                            <div className="relative text-[0.9rem] leading-[1.025rem] font-semibold font-h5-22-bold text-dark-blue text-center inline-block min-w-[4.938rem]">
                               Amazon
                             </div>
                           </a>

@@ -4,6 +4,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        "custom-blue": "#e8f0ff",
+        "custom-white": "#ffffff",
+        EBEBEB:"#EBEBEB",
         homeListbg: "#E8F0FF",
         blue: "#004fe6",
         whiteee: "#D9E6FF",
@@ -13,6 +16,7 @@ module.exports = {
         },
         gray: {
           100: "#fbfbfb",
+          150: "#f4f4f4",
           200: "rgba(255, 255, 255, 0.5)",
         },
         "white-color": "#fff",
@@ -26,6 +30,7 @@ module.exports = {
           300: "#d9e6ff",
         },
         azure: "#f3fffe",
+        bcb8f3:"#dad8f3",
         orange: "#ffa41c",
         chocolate: {
           100: "#cc7000",
@@ -66,6 +71,8 @@ module.exports = {
       fontFamily: {
         "p-18-bold": "Nunito",
         "h5-22-bold": "Outfit",
+        "Nunito": "Nunito",
+        "Outfit": "Outfit",
         "paragraph-18-medium": "Poppins",
       },
       borderRadius: {
@@ -88,13 +95,14 @@ module.exports = {
         "53xl": "72px",
         "43xl": "62px",
         "7xl": "26px",
-      }, borderColor: {
-        'custom-light-blue': '#F4F8FF', // Example custom border color
+      },
+      borderColor: {
+        "custom-light-blue": "#F4F8FF", // Example custom border color
         // Add other custom border colors here
       },
       borderWidth: {
-        'custom-thin': '2px', // Example custom border width
-        'custom-thick': '4px',
+        "custom-thin": "2px", // Example custom border width
+        "custom-thick": "4px",
         // Add other custom border widths here
       },
     },
@@ -112,16 +120,14 @@ module.exports = {
       inherit: "inherit",
     },
     screens: {
-      mq450: "450px", // Custom breakpoint for 450px wide screens
-      mq825: "825px",
-      mq1425: "1425px", // Custom breakpoint for 1425px wide screens
-
-      desktop: "1200px", // Large screens and desktops
-      laptop: "1024px", // Laptop (13-14 inch)
-      mobile: "640px", // Mobile devices
-      tablet: "768px", // Tablets
-      "small-mobile": "480px", // Small mobile devices
+      smallMobile: '480px', // Small mobile devices
+      mobile: '640px',         // Mobile devices
+      tablet: '768px',         // Tablets
+      laptop: '1024px',        // Laptop (13-14 inch)
+      desktop: '1200px',       // Large screens and desktops
+ 
     },
+    
   },
   corePlugins: {
     preflight: false,
