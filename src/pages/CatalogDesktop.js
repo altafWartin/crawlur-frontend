@@ -37,13 +37,11 @@ const CatalogFinalDesktop = () => {
   }, [query]); // Dependency on query to trigger effect on query change
 
   return (
-    <div className="w-full relative bg-white-color overflow-hidden flex flex-col items-start justify-start leading-[normal] tracking-[normal]">
+    <div className="w-full  pb-[3rem] bg-white-color overflow-hidden flex flex-col items-start justify-start leading-[normal] tracking-[normal]">
       <CatalogNavbar query={query} />
-      <main className="self-stretch [background:linear-gradient(180deg,_#f5f7ff,_rgba(252,_252,_255,_0))] flex flex-col items-start justify-start pt-[0rem] px-[0rem] pb-[7.687rem] box-border max-w-full">
-        <SuggestionDropdown />
-        <Content1 data={results} query={query} loading={loading} />
-      </main>
-      {/* <FooterDesktop />  */}
+      <SuggestionDropdown />
+      <Content1 data={results} query={query} loading={loading} />
+ 
     </div>
   );
 };

@@ -1,6 +1,7 @@
 // api/api.js
 // const BASE_URL = 'http://localhost:5000';
-const BASE_URL = 'http://3.86.146.122:5000';
+// const BASE_URL = 'http://3.86.146.122:5000';
+const BASE_URL = 'https://pk20l61n-5000.inc1.devtunnels.ms';
 
 export async function searchLocalProducts(query) {
   try {

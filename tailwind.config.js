@@ -98,6 +98,7 @@ module.exports = {
       },
       borderColor: {
         "custom-light-blue": "#F4F8FF", // Example custom border color
+        "dark-blue": "#0E275D"
         // Add other custom border colors here
       },
       borderWidth: {
@@ -107,25 +108,27 @@ module.exports = {
       },
     },
     fontSize: {
-      mini: "0.838rem",
-      lg: "1.025rem",
-      "3xl": "1.275rem",
-      "13xl": "1.900rem",
-      "2xl": "1.213rem",
-      xl: "1.15rem",
-      base: "0.9rem",
-      "29xl": "2.9rem",
-      "37xl": "3.3rem",
-      "21xl": "2.4rem",
-      inherit: "inherit",
+      'xs': '0.75rem',   // 12px
+      'sm': '0.775rem',  // 14px
+      'base': '1rem',    // 16px
+      'lg': '1.125rem',   // 18px
+      'xl': '1.25rem',    // 20px (Desktop - 1920px)
+      '2xl': '1.5rem',    // 24px
+      '3xl': '1.875rem',  // 30px
+      '4xl': '2.25rem',   // 36px
+      '5xl': '3rem',      // 48px
+      '6xl': '3.5rem',   // 60px
+      '7xl': '4.5rem',    // 72px
+      '8xl': '6rem',      // 96px
+      '9xl': '8rem',      // 128px
     },
     screens: {
-      smallMobile: '480px', // Small mobile devices
+    
       mobile: '640px',         // Mobile devices
       tablet: '768px',         // Tablets
       laptop: '1024px',        // Laptop (13-14 inch)
-      desktop: '1200px',       // Large screens and desktops
- 
+      desktop: '1300px',       // Large screens and desktops
+      
     },
     
   },

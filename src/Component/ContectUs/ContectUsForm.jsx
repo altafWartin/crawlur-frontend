@@ -73,9 +73,8 @@ const ContactUsForm = () => {
 
     return (
         <section className="self-stretch pb-10 flex flex-row items-start justify-center py-[0rem] px-[1.25rem] box-border max-w-full mt-[-41.688rem] text-left text-[2rem] text-dark-blue font-h5-22-bold">
-            <div className="w-[35.25rem] flex flex-row items-start justify-start relative max-w-full">
-            <div className="h-[33.438rem] w-[60.375rem] absolute !m-[0] bottom-[0.019rem] left-[50%] transform -translate-x-1/2 rounded-t-11xl rounded-b-none bg-gradient-to-b from-[#f5f7ff] to-transparent z-[2]" />
-            <div className="flex-1 shadow-lg rounded-t-9xl rounded-b-none bg-white-color flex flex-col items-start justify-start pt-[3.062rem] px-[5.125rem] pb-[2.5rem] box-border gap-[2.187rem] max-w-full z-[3]">
+            <div className=" flex flex-row items-start justify-start relative max-w-full">
+                <div className="flex-1 shadow-lg rounded-t-9xl rounded-b-none bg-white-color flex flex-col items-start justify-start pt-[3.062rem] px-[5.125rem] pb-[2.5rem] box-border gap-[2.187rem] max-w-full z-[3]">
                     <div className="flex flex-col items-start justify-start gap-[0.75rem] max-w-full">
                         <h2 className="m-0 w-[31.563rem] text-[24px] relative text-inherit leading-[2.125rem] font-bold font-inherit inline-block max-w-full z-[4]">
                             Contact Us!

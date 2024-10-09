@@ -5,11 +5,17 @@ import ProductInformation from "./ProductInformation";
 import ImageViewer from "../Component/ProductPage/ImageViewer";
 import ProductDetails from "../Component/ProductPage/ProductDetails";
 import SocialContent from "../Component/SocialContent/SocialContent";
+import Lottie from "lottie-react";
+import loadinggg from "../assets/Animation - 1725965270267.json";
+
 import Reviews from "../Component/Reviews/Reviews";
 import { TabView } from "primereact/tabview";
 import Tabview from "../Component/Tabview/Tabview";
 import ExampleModal from "../Component/EmailModal/Emailmodal";
 import CatalogNavbar from "../Component/Navbar/CatalogNavbar";
+import socialimg from './../assets/socialmeadia.png'
+import socialimgdsk from './../assets/socialmeadiadesk.png'
+
 
 const Product = () => {
   const { asin } = useParams(); // Extract 'asin' from URL params
@@ -50,7 +56,15 @@ const Product = () => {
   }, [asin]);
 
   if (loading) {
-    return <div>{loadingMessage}</div>; // Show loading message while fetching
+    return <div>      <CatalogNavbar />
+      <div className="flex items-center justify-center w-full  laptop:h-[10rem] mobile:[6rem]">
+        {/* Loading Spinner */}
+        <Lottie
+          animationData={loadinggg}
+          loop={true}
+          style={{ width: 100, height: 100 }}
+        />
+      </div></div>; // Show loading message while fetching
   }
 
   if (error) {
@@ -58,46 +72,75 @@ const Product = () => {
   }
 
   return (
-    <div className="w-full relative  bg-white-color hide-x-scroll overflow-x-hidden flex flex-col items-center justify-center leading-[normal] tracking-[normal]">
+    <div className="w-full   [background:var(--Light-background-gradient,linear-gradient(180deg,#F5F7FF_0%,rgba(252,252,255,0.00)_100%))]  overflow-x-hidden  items-center justify-center ">
 
       {
         loadingMessage && (
           <ExampleModal />
         )
       }
+      <CatalogNavbar />
 
-
-
-      <section className="w-full h-[750px]  self-stretch  [background:linear-gradient(180deg,_#f5f7ff,_rgba(252,_252,_255,_0))] flex flex-col items-start justify-start pt-[0rem] px-[0rem] pb-[3.125rem] box-border gap-[5rem] max-w-full lg:gap-[2.5rem] laptop:gap-[1.25rem] laptop:pb-[1.313rem] laptop:box-border laptop:pb-[2rem] mq1425:box-border">
-        <CatalogNavbar />
-        <div
-          className={`self-stretch mt-16  flex flex-row items-start justify-center py-[0rem] px-[1.25rem] box-border max-w-full text-left text-[2.5rem] text-dark-blue font-typography-desktop-h5-22-bold`}
-        >
-          <div className="w-full flex flex-row  items-start justify-center gap-[1.987rem] max-w-full lg:flex-wrap laptop:gap-[1rem]">
-            <div class="w-full flex mb-96 gap-5  justify-center">
-              <div class=" h-28 ">
-                <ImageViewer product={product} />
-              </div>
-              <div class=" h-auto">
-                <ProductDetails product={product} />
-              </div>
+      <div className="w-full my-12   flex justify-center">
+        <div className="container ">
+          <div className="flex flex-col gap-5 laptop:flex-row">
+            <div className="w-full laptop:w-1/2   ">
+              <ImageViewer product={product} />
+            </div>
+            <div className="w-full  laptop:w-1/2 ">
+              <ProductDetails product={product} />
             </div>
           </div>
-        </div>{" "}
-      </section>
+        </div>
+      </div>
+
+
+
+
 
 
       <Tabview product={product} />
-
-      <SocialContent />
-
+      <div className="w-full flex justify-center">
 
 
+        <div className=" hidden laptop:block">
+          <h3 className="
+  text-[#0E275D] 
+  text-center 
+  font-Outfit 
+  font-bold 
+  leading-[2rem]   // Default for mobile
+  text-[1.75rem]    // Default font size for mobile
+  laptop:text-[2.25rem] 
+  laptop:leading-[2.375rem] 
+  desktop:text-[2.5rem] 
+  desktop:leading-[2.625rem]
+">
+            Lorem Ipsum Is A Dummy Text
+          </h3>
 
-      <Reviews />
+          <img src={socialimgdsk} alt="" className="w-full h-auto object-cover" />
+        </div>
+      </div>
+
+
+      {/* Laptop view */}
+      <div className="block mobile:hidden">
+        <section className="w-full py-10 my-10 bg-slate-100   flex flex-col items-start">
+          <img className='w-full' src={socialimg} alt="" />
+        </section>
+      </div>
+
+
+      <div className="px-0 mobile:px-2 ">
+
+        <Reviews />
+      </div>
 
 
       <ProductInformation />
+
+
 
 
     </div>
